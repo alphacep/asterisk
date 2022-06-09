@@ -805,6 +805,8 @@ static int speech_background(struct ast_channel *chan, const char *data)
 		if ((!quieted || strlen(dtmf)) && started == 1) {
 			current = ast_tvnow();
 			if ((ast_tvdiff_ms(current, start)) >= timeout) {
+				/* Update results if we have any */
+				speech->results = ast_speech_results_get(speech);
 				done = 1;
 				if (f)
 					ast_frfree(f);
